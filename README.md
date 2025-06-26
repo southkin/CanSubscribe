@@ -4,7 +4,19 @@
 [![](https://img.shields.io/badge/spm-supported-orange)](https://swift.org/package-manager/)
 [![](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-## Usage & Sample
+## Usage
+```swift
+@CanSubscribe var myValue:<Type>
+```
+and
+```swift
+let cancellable = $myValue.sink {
+    print($0)
+}
+myValue = <#value#>
+print(myValue)
+```
+## Sample
 ```swift
 var cancellables: Set<AnyCancellable> = []
 struct MyStruct {
