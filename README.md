@@ -27,9 +27,9 @@ print("str : \(myString!)")
 print("int : \(myInt)")
 print("struct : \(myStruct!)")
 
-$myString.sink {print("str-sink : \($0!)")}.store(in: &cancellables)
-$myInt.sink {print("int-sink : \($0)")}.store(in: &cancellables)
-$myStruct.sink {print("struct-sink : \($0!)")}.store(in: &cancellables)
+$myString.publisher.sink {print("str-sink : \($0!)")}.store(in: &cancellables)
+$myInt.publisher.sink {print("int-sink : \($0)")}.store(in: &cancellables)
+$myStruct.publisher.sink {print("struct-sink : \($0!)")}.store(in: &cancellables)
 
 myString = "b"
 myInt = 2
@@ -63,4 +63,9 @@ struct-sink : MyStruct(str: "e", int: 7)
 str : c
 int : 3
 struct : MyStruct(str: "e", int: 7)
+```
+
+### subscriber count
+```swift
+print($myString.subscriberCount)
 ```
