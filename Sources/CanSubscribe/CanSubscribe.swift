@@ -5,7 +5,16 @@ import Combine
 @propertyWrapper
 public class CanSubscribe<Value> {
     private let subject: CurrentValueSubject<Value, Never>
-    public private(set) var subscriberCount = 0
+    public private(set) var subscriberCount = 0 {
+        didSet {
+            didChangeSubscriber?(subscriberCount)
+        }
+    }
+    public var didChangeSubscriber: ((Int) -> Void)? {
+        didSet {
+            didChangeSubscriber?(subscriberCount)
+        }
+    }
     
     public var wrappedValue: Value {
         get { subject.value }
@@ -34,12 +43,20 @@ public class CanSubscribe<Value> {
         subject = .init(initial)
     }
 }
-import Combine
 
 @propertyWrapper
 public final class CanSubscribeWithError<Value, Failure: Error> {
     private let subject: CurrentValueSubject<Value, Failure>
-    public private(set) var subscriberCount = 0
+    public private(set) var subscriberCount = 0 {
+        didSet {
+            didChangeSubscriber?(subscriberCount)
+        }
+    }
+    public var didChangeSubscriber: ((Int) -> Void)? {
+        didSet {
+            didChangeSubscriber?(subscriberCount)
+        }
+    }
 
     public var wrappedValue: Value {
         get { subject.value }
